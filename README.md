@@ -14,21 +14,23 @@
 
 
 
-## Run
+## Build
 
 ```bash
+./build.sh
 ```
 
 
 
-## Usage
+## Run
 
 ```
+./run.sh
 ```
 
 
 
-## Settings
+## Config
 
 An example of *gitiles* configuration in [gitiles.config](https://github.com/pingview/gitiles/blob/main/gitiles.config):
 
