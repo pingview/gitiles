@@ -38,6 +38,18 @@ docker run --rm \
 An example of *gitiles* configuration in [gitiles.config](https://github.com/pingview/gitiles/blob/main/gitiles.config):
 
 ```
+[gitiles]
+  siteTitle = pingview
+  canonicalHostName = gitiles.example.org
+  baseGitUrl = git://git.example.org/
+  exportAll = true
+  fixedTimeZone = UTC
+  allowOriginRegex = http://localhost
+
+[markdown]
+  render = true
+  inputLimit = 5M
+  imageLimit = 256K
 ```
 
 
