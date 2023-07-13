@@ -37,3 +37,11 @@ RUN git clone https://gerrit.googlesource.com/gitiles -b v1.2.0 && \
 USER root
 WORKDIR /gitiles
 RUN bazel build java/com/google/gitiles/dev
+
+USER root
+WORKDIR /gitiles
+COPY run.sh .
+RUN mkdir /config /source
+
+EXPOSE 8080
+ENTRYPOINT ["./run.sh"]
