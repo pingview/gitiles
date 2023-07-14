@@ -28,7 +28,7 @@
 docker run --rm \
   -v /path/to/config:/config \
   -v /path/to/source:/source \
-  craftslab/gitiles /config/gitiles.config /source
+  craftslab/gitiles:latest /config/gitiles.config /source
 ```
 
 
