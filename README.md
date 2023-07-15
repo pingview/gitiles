@@ -25,31 +25,28 @@
 ## Run
 
 ```
-docker run --rm \
-  -v /path/to/config:/config \
-  -v /path/to/source:/source \
-  craftslab/gitiles:latest /config/gitiles.config /source
+docker run -p 8080:8080 -v /path/to/config:/config craftslab/gitiles:latest /config/gitiles.config
 ```
 
 
 
 ## Config
 
-An example of *gitiles* configuration in [gitiles.config](https://github.com/pingview/gitiles/blob/main/gitiles.config):
+An example of *gitiles* configuration in [gitiles.config](https://github.com/pingview/gitiles/blob/main/config/gitiles.config):
 
 ```
 [gitiles]
-  siteTitle = pingview
-  canonicalHostName = gitiles.example.org
+  allowOriginRegex = http://localhost
   baseGitUrl = git://git.example.org/
+  canonicalHostName = gitiles.example.org
   exportAll = true
   fixedTimeZone = UTC
-  allowOriginRegex = http://localhost
+  siteTitle = gitiles
 
 [markdown]
-  render = true
-  inputLimit = 5M
   imageLimit = 256K
+  inputLimit = 5M
+  render = true
 ```
 
 

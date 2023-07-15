@@ -5,6 +5,6 @@
 set -e
 
 PROPERTIES="--jvm_flag=-Dcom.google.gitiles.configPath=$1"
-PROPERTIES="$PROPERTIES --jvm_flag=-Dcom.google.gitiles.sourcePath=$2"
+PROPERTIES="$PROPERTIES --jvm_flag=-Dcom.google.gitiles.sourcePath=/source"
 
-"bazel-bin/java/com/google/gitiles/dev/dev" $PROPERTIES
+"/source/bazel-bin/java/com/google/gitiles/dev/dev" $PROPERTIES

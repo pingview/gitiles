@@ -2,6 +2,7 @@ FROM ubuntu:20.04
 
 LABEL maintainer="Jia Jia <angersax@sina.com>"
 
+# Install toolchains
 USER root
 WORKDIR /
 ENV DEBIAN_FRONTEND=noninteractive
@@ -14,6 +15,7 @@ RUN apt update -y && \
     apt install -y python3.8 && \
     ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo $TIME_ZONE > /etc/timezone
 
+# Install bazel
 USER root
 WORKDIR /
 RUN mkdir -p /opt/bazel/bin && \
@@ -21,6 +23,7 @@ RUN mkdir -p /opt/bazel/bin && \
     chmod +x /opt/bazel/bin/bazel
 ENV PATH=/opt/bazel/bin:$PATH
 
+# Install bazelisk
 USER root
 WORKDIR /
 ENV PATH=/opt/go/bin:$PATH
@@ -29,19 +32,22 @@ RUN curl -L https://go.dev/dl/go1.20.6.linux-amd64.tar.gz -o go.tar.gz && \
     go install github.com/bazelbuild/bazelisk@latest
 ENV PATH=/root/go/bin:$PATH
 
+# Download gitiles
 USER root
 WORKDIR /
-RUN git clone https://gerrit.googlesource.com/gitiles -b v1.2.0 && \
-    cd gitiles; git submodule update --init
+RUN git clone https://gerrit.googlesource.com/gitiles -b v1.2.0 source && \
+    cd source; git submodule update --init
 
+# Build gitiles
 USER root
-WORKDIR /gitiles
+WORKDIR /source
 RUN bazel build java/com/google/gitiles/dev
 
+# Run gitiles
 USER root
-WORKDIR /gitiles
+WORKDIR /
 COPY run.sh .
-RUN mkdir /config /source
+RUN mkdir /config
 
 EXPOSE 8080
 ENTRYPOINT ["./run.sh"]
