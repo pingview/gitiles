@@ -32,22 +32,20 @@ RUN curl -L https://go.dev/dl/go1.20.6.linux-amd64.tar.gz -o go.tar.gz && \
     go install github.com/bazelbuild/bazelisk@latest
 ENV PATH=/root/go/bin:$PATH
 
-# Download gitiles
-USER root
-WORKDIR /
-RUN git clone https://gerrit.googlesource.com/gitiles -b v1.2.0 source && \
-    cd source; git submodule update --init
-
 # Build gitiles
 USER root
-WORKDIR /source
-RUN bazel build java/com/google/gitiles/dev
+WORKDIR /
+RUN mkdir config project source script
+COPY gitiles.config config
+COPY run.sh script
+RUN git clone https://gerrit.googlesource.com/gitiles -b v1.2.0 source && \
+    cd source && \
+    git submodule update --init && \
+    bazel build java/com/google/gitiles/dev
 
 # Run gitiles
 USER root
-WORKDIR /
-COPY run.sh .
-RUN mkdir /config
+WORKDIR /project
 
 EXPOSE 8080
-ENTRYPOINT ["./run.sh"]
+CMD ["/script/run.sh", "/config/gitiles.config", "/source"]

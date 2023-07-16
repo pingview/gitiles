@@ -25,7 +25,7 @@
 ## Run
 
 ```
-docker run -p 8080:8080 -v /path/to/config:/config craftslab/gitiles:latest /config/gitiles.config
+docker run -p 8080:8080 -v /path/to/project:/project craftslab/gitiles:latest
 ```
 
 
