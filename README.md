@@ -1,5 +1,6 @@
 # gitiles
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/craftslab/gitiles.svg)](https://hub.docker.com/r/craftslab/gitiles/)
 [![License](https://img.shields.io/github/license/pingview/gitiles.svg?color=brightgreen)](https://github.com/pingview/gitiles/blob/main/LICENSE)
 
 
